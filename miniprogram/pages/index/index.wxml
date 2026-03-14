@@ -1,0 +1,87 @@
+<view class="page">
+  <view class="loading" wx:if="{{loading}}">
+    <view class="spinner"></view>
+    <text class="loading-text">正在生成新棋盘…</text>
+  </view>
+
+  <view class="victory-overlay" wx:if="{{showVictory}}">
+    <view class="victory-card">
+      <text class="victory-emoji">🏆</text>
+      <text class="victory-title">已完成！</text>
+      <view class="victory-line">用时 {{victoryTime}} · 难度 {{victoryDifficulty}}</view>
+      <view class="victory-actions">
+        <button class="ghost" bindtap="handleVictoryClose">先看看棋盘</button>
+        <button class="primary" bindtap="handleVictoryNew">🎲 再来一局</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="header">
+    <view class="title">
+      <text class="title-icon">⊞</text>
+      <text class="title-text">数独 Sudoku</text>
+    </view>
+    <view class="header-actions">
+      <button class="ghost" bindtap="handleRestart">↺ 重置</button>
+      <button class="primary" bindtap="handleNewGame">🎲 新局</button>
+    </view>
+  </view>
+
+  <view class="stats-bar">
+    <view class="tabs">
+      <view class="tab {{difficulty==='easy'?'active':''}}" data-diff="easy" bindtap="handleDiffTap">简单</view>
+      <view class="tab {{difficulty==='medium'?'active':''}}" data-diff="medium" bindtap="handleDiffTap">中等</view>
+      <view class="tab {{difficulty==='hard'?'active':''}}" data-diff="hard" bindtap="handleDiffTap">困难</view>
+      <view class="tab {{difficulty==='expert'?'active':''}}" data-diff="expert" bindtap="handleDiffTap">骨灰</view>
+    </view>
+    <view class="timer-row">
+      <text class="timer-label">⏱ {{timerDisplay}}</text>
+      <view class="pill {{isPaused?'active':''}}" bindtap="handlePause">{{isPaused?'继续':'暂停'}}</view>
+    </view>
+  </view>
+
+  <view class="progress-row">
+    <view class="progress-track">
+      <view class="progress-fill" style="width: {{progress}}%;"></view>
+    </view>
+    <text class="progress-text">{{progress}}%</text>
+  </view>
+
+  <view class="board-card">
+    <view class="board-grid">
+      <block wx:for="{{boardFlat}}" wx:for-item="cell" wx:key="index">
+        <view class="cell {{cell.given?'given':''}} {{cell.isSelected?'selected':''}} {{cell.highlighted?'highlighted':''}} {{cell.sameNumber?'same':''}} {{cell.conflict?'conflict':''}} {{cell.boxBorderRight?'box-right':''}} {{cell.boxBorderBottom?'box-bottom':''}}" data-row="{{cell.row}}" data-col="{{cell.col}}" bindtap="handleCellTap">
+          <block wx:if="{{cell.val}}">
+            <text class="{{cell.given?'given-num':'user-num'}}">{{cell.val}}</text>
+          </block>
+          <block wx:elif="{{cell.hasNotes}}">
+            <view class="notes-grid">
+              <block wx:for="{{cell.notesGrid}}" wx:for-item="note" wx:key="index">
+                <text class="note {{note ? 'active-note' : ''}}">{{note}}</text>
+              </block>
+            </view>
+          </block>
+        </view>
+      </block>
+    </view>
+    <view class="paused-mask" wx:if="{{isPaused}}">
+      <text>已暂停</text>
+    </view>
+  </view>
+
+  <view class="numpad-card">
+    <view class="num-grid">
+      <block wx:for="{{numPad}}" wx:for-item="btn" wx:key="btn.num">
+        <view class="num-btn {{btn.remaining === 0 ? 'disabled' : ''}}" data-num="{{btn.num}}" bindtap="handleNumTap">
+          <text class="num">{{btn.num}}</text>
+          <text class="badge">{{btn.remaining}}</text>
+        </view>
+      </block>
+    </view>
+    <view class="action-row">
+      <view class="action-btn" bindtap="handleErase">⌫ 清除</view>
+      <view class="action-btn {{notesMode?'active':''}}" bindtap="toggleNotesMode">✏️ 草稿</view>
+      <view class="action-btn" bindtap="handleHint">💡 提示</view>
+    </view>
+  </view>
+</view>

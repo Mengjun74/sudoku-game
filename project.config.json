@@ -1,0 +1,14 @@
+{
+  "description": "Sudoku mini program generated from the web version",
+  "appid": "touristappid",
+  "projectname": "sudoku-miniapp",
+  "miniprogramRoot": "miniprogram/",
+  "compileType": "miniprogram",
+  "setting": {
+    "urlCheck": false,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": false
+  }
+}

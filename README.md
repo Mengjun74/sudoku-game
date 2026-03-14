@@ -66,6 +66,12 @@ start index.html
 npx serve .
 ```
 
+## 📱 微信小程序版本
+
+- 代码路径：`miniprogram/`，项目配置：`project.config.json`
+- 在微信开发者工具中选择“导入项目”，指向本仓库根目录即可预览运行
+- 入口页面：`pages/index/index`（复用原 SudokuEngine，支持难度切换、计时、草稿、提示、暂停、重置/新局与胜利弹层）
+
 ---
 
 ## 🧠 How It Works

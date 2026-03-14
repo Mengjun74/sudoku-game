@@ -1,0 +1,13 @@
+page {
+  background: #0b1220;
+  color: #e8ecf3;
+  font-family: "SF Pro Display", "Segoe UI", system-ui, -apple-system, sans-serif;
+}
+
+button::after {
+  border: none;
+}
+
+.flex {
+  display: flex;
+}
